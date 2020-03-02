@@ -15,14 +15,16 @@ LOG = logging.getLogger(__name__)
 
 
 @click.command()
+@click.option('--os-cloud')
 @click.option('-l', '--listen', default='0.0.0.0')
-@click.option('-p', '--port', default=5111)
+@click.option('-p', '--port', default=5112)
 @click.option('-v', '--verbose', count=True, default=0,
               type=click.IntRange(0, 2))
-def main(verbose, listen, port):
+def main(os_cloud, verbose, listen, port):
     loglevel = ['WARNING', 'INFO', 'DEBUG'][verbose]
     logging.basicConfig(level=loglevel)
-    cloud = openstack.connect()
+
+    cloud = openstack.connect(cloud=os_cloud)
 
     REGISTRY.register(CinderCollector(
         cloud

@@ -1,3 +1,4 @@
 click
+openstacksdk
 prometheus_client
 pyyaml
